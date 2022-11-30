@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 // optional shortcut to the mongoose.Schema class
 const Schema = mongoose.Schema;
 const flightSchema = new Schema({
-    Airline: {
+    airline: {
         type: String,
         enum: ['Delta', 'Southwest', 'United'],
         
@@ -26,3 +26,5 @@ const flightSchema = new Schema({
         },
     },
   });
+
+  module.exports = mongoose.model('Flight', flightSchema);
