@@ -4,8 +4,14 @@ module.exports = {
 index, 
 new: newFlight, 
 create,
+show,
 }
 
+function show(req, res) { 
+    Flight.findById(req.params.id, function(err, flightDoc) { 
+        res.render('flights/show', {flight : flightDoc});
+    })
+}
 function create(req, res) { 
     if (req.body.departs == "") { 
         req.body.departs = undefined
