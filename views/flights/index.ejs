@@ -9,7 +9,7 @@
     <tbody>
       <% flights.forEach(flight => { %>
         <tr>
-          <td><%= flight.flightNo %></td>
+          <td class="<%= flight.departs < date ? "pastDate" : "scheduled" %> "><%= flight.flightNo %></td>
           <td><a href="/flights/<%= flight._id %> ">Details</a></td>
         </tr>
         <% }) %>

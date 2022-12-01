@@ -2,8 +2,13 @@ const Flight = require('../models/database');
 
 module.exports = { 
     create,
+    // delete: deleteDestination,
 }
 
+// function deleteDestination(req, res) { 
+//     console.log("you are trying to delete thsi")
+//     res.redirect(`/flights/${req.params.id}`, );
+// }
 function create(req, res) { 
     console.log(req.body);
     console.log(req.params.id);

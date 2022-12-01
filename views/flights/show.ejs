@@ -20,6 +20,7 @@
               <tr>
                 <th>Airport</th>
                 <th>Arrival</th>
+                <th>Remove Destination</th>
               </tr>
               </thead>
               <tbody>
@@ -27,7 +28,10 @@
                 <tr>
                 <td><%= d.airport %></td>
                 <td><%= d.arrival %></td>
-                </tr>
+                <!-- <td><form action="/destinations/<%=  %>?_method=DELETE" method="POST"> 
+                    <button type="Submit">X</button>
+                  </form></td>
+                </tr> -->
               <% }); %>
               </tbody>
             </table>

@@ -36,9 +36,15 @@ function index(req, res) {
 
     Flight.find({}, function(err, flightDocs){ 
         console.log(flightDocs)
-        res.render('flights/index', {flights : flightDocs});
+        currentDate = new Date();
+        res.render('flights/index', {flights : flightDocs, date : currentDate});
     })
 }
 function newFlight(req, res) { 
-    res.render('flights/new');
+    const newFlight = new Flight(); 
+// Obtain the default date
+    const dt = newFlight.departs;
+// Format the date for the value attribute of the input
+    const departsDate = dt.toISOString().slice(0, 16);
+    res.render('flights/new', {defaultDate : departsDate});
 }
