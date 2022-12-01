@@ -38,6 +38,13 @@
     </tbody>
   </table>
 
+</br> 
+<h3>Tickets:</h3>
+<ul>
+    <% tickets.forEach(ticket => { %>
+     <li>Seat: <%= ticket.seat %> Price: $<%= ticket.price %> </li>
+    <% }) %>
+</ul>
   <br><br><h2>Add Destination</h2>
  <form method="POST"
    action="/flights/<%= flight._id %>/destinations">
@@ -53,6 +60,15 @@
     <input type="datetime-local" name="arrival">
 </label><br>
 <input type="submit" value="Add Destination">
+ </form>
+ <br> 
+ <h3>Add Ticket</h3>
+ <form action="/flights/<%= flight._id %>/tickets " method="POST"> 
+     <label>Seat: <br>req.(A-F+1-9)</label>
+    <input name="seat" required pattern="[A-F][1-9]\d?">
+     <label>Price: $</label>
+    <input name="price" type="text" value="">
+     <input type="submit" value="Add Ticket">
  </form>
 </body>
 </html>
