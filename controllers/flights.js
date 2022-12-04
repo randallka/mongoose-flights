@@ -8,37 +8,36 @@ create,
 show,
 }
 
-function show(req, res) { 
-    Flight.findById(req.params.id, function(err, flightDoc) { 
-        console.log(flightDoc);
-        Ticket.find({flight: flightDoc._id}, function(err, tickets) {
-            console.log(tickets);
-            res.render('flights/show', {flight : flightDoc, tickets : tickets});
-        });
-    })
-}
-function create(req, res) { 
-    if (req.body.departs == "") { 
-        req.body.departs = undefined
+async function show(req, res) { 
+    try {
+        const flightDoc = await Flight.findById(req.params.id); 
+        const tickets = await Ticket.find({flight: flightDoc._id}); 
+        res.render('flights/show', {flight : flightDoc, tickets : tickets});
+    } catch (err) { 
+        console.log(err); 
+        res.send('error');
     }
-    console.log(req.body);
-
-    Flight.create(req.body, function(err, flightDoc) { 
-        if(err) { 
-            console.log(err); 
-            return res.send("error please go back to the home page")
-        }
-        console.log(flightDoc); 
-        res.redirect('/');
-    })
 }
-function index(req, res) { 
-
-    Flight.find({}, function(err, flightDocs){ 
-        console.log(flightDocs)
+async function create(req, res) { 
+    try { 
+        if (req.body.departs == "") { 
+            req.body.departs = undefined
+        } const flightDoc = await Flight.create(req.body); 
+        res.redirect('/');
+    } catch (err) { 
+        console.log(err); 
+        res.send('error');
+    }
+}
+async function index(req, res) { 
+    try { 
+        const flightDocs = await Flight.find({});
         currentDate = new Date();
         res.render('flights/index', {flights : flightDocs, date : currentDate});
-    })
+    } catch (err) { 
+        console.log(err); 
+        res.send('error')
+    }
 }
 function newFlight(req, res) { 
     const newFlight = new Flight(); 

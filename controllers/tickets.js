@@ -2,15 +2,13 @@ const Ticket = require('../models/ticket');
 module.exports = { 
     create,
 }
-function create(req, res) { 
-    Ticket.create(req.body, function(err, ticketDoc) { 
-        if(err) { 
-            console.log(err); 
-            return res.send("error please go back to the home page")
-        }
-        ticketDoc.flight = req.params.id
-        ticketDoc.save();
-        console.log(ticketDoc); 
+async function create(req, res) { 
+try { const ticketDoc = await Ticket.create(req.body); 
+    ticketDoc.flight = req.params.id
+        ticketDoc.save(); 
         res.redirect(`/flights/${req.params.id}`);
-    })
+    } catch (err) { 
+        console.log(err) ;
+        res.send('errror');
+    }
 }

@@ -4,21 +4,14 @@ module.exports = {
     create,
 }
 
-function create(req, res) { 
-    console.log(req.body);
-    console.log(req.params.id);
-
-
-    Flight.findById(req.params.id, function(err, flightDoc){ 
-
-        if(err) { 
+async function create(req, res) { 
+  try {
+    const flightDoc = await Flight.findById(req.params.id); 
+    flightDoc.destinations.push(req.body); 
+    flightDoc.save();
+    res.redirect(`/flights/${req.params.id}`);
+     } catch (err) { 
             console.log(err)
-            return res.send("error");
+            res.send("error");
         }
-        console.log(flightDoc);
-        flightDoc.destinations.push(req.body);
-        flightDoc.save(function(err) { 
-            res.redirect(`/flights/${req.params.id}`, ); 
-        });
-    });
 }
